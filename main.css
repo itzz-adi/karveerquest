@@ -1,0 +1,620 @@
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"); /* Main Font Style and Secondary Font Style Of the Website */
+:root {
+  /* COLORS */
+  --primary: #ff7c47; /* brand color */
+  --primary-light: #ffae8d; /* brand color light */
+  --background-dark: #193282; /* darker background color */
+  --background: #4465dd; /* main background color */
+  --background-light: #7693fc; /* lighter background color */
+  --accent: #d95afb; /* main accent color (for card backgrounds and stuff)*/
+  --highlight: #f5e577; /* main hightlight color for text and icons */
+  --white: #fff; /* main text and heading color */
+  --white-light: rgba(255, 255, 255, 0.813);
+  --success: #2ecc71;
+  --failure: #e74c3c;
+
+  /* TYPOGRAPHY */
+
+  /* Font Styles */
+  --heading-font-style: "Outfit", sans-serif;
+  --primary-font-style: "Poppins", sans-serif;
+  --secondary-font-style: "Audiowide", cursive;
+
+  /* Font Sizes */
+  --h1: 4rem;
+  --h1-small: 3rem;
+  --h2: 3rem;
+  --h2-small: 2rem;
+  --h3: 2rem;
+  --h3-small: 1.5rem;
+  --h4: 1rem;
+  --h4-small: 0.9rem;
+  --button-small: 0.85rem;
+  --button: 1.05rem;
+  --paragraph: 1rem;
+  --paragraph-small: 0.85rem;
+  --nav-link: 0.9rem; /* for links in navgation and footer */
+  --icon-size: 1.25rem;
+  --icon-size-small: 1rem;
+  /*  */
+}
+
+/******* CSS RESET (DO NOT TOUCH (line 17-137)) *********/
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-family: var(--primary-font-style);
+}
+/* Default Heading & Paragraph Styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--white);
+  font-family: var(--heading-font-style);
+  text-transform: uppercase;
+  font-weight: 900;
+  line-height: 1.2;
+}
+h1 {
+  font-size: var(--h1);
+}
+h2 {
+  font-size: var(--h2);
+}
+h3 {
+  font-size: var(--h3);
+}
+h4 {
+  font-size: var(--h4);
+}
+p {
+  font-size: var(--paragraph);
+  color: var(--white-light);
+}
+/* A elements that don't have a class get default styles */
+a {
+  text-decoration: none;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  border: none;
+}
+input:focus {
+  outline: none;
+}
+button {
+  color: var(--white);
+  font-size: var(--button);
+  border-radius: 50px;
+  cursor: pointer;
+}
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Add your styles below */
+
+body {
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+}
+
+/**** Header/Navigation Styling ****/
+header {
+  padding-block: 0.5rem;
+}
+
+/* Logo */
+
+header img:first-of-type,
+.footer img:first-of-type {
+  width: 7rem;
+}
+
+/* Navigation Links */
+header nav,
+header nav ul,
+.footer,
+.footer ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header nav ul {
+  gap: 3rem;
+}
+
+.footer ul {
+  gap: 2rem;
+}
+
+header nav ul li a,
+.footer ul li a {
+  font-size: var(--nav-link);
+  color: var(--white-light);
+  transition: color 0.2s ease-out;
+}
+
+header nav ul li a:hover,
+.footer ul li a:hover {
+  color: var(--primary);
+}
+
+/* User Icon */
+header i {
+  font-size: var(--icon-size);
+  transition: color 0.2s ease-out;
+  color: var(--white);
+  cursor: pointer;
+}
+header i:hover {
+  color: var(--primary);
+}
+.responsive-nav{
+  display:none;
+  position:relative;
+}
+.responsive-nav-content{
+  display: none;
+  position: absolute;
+  z-index: 100;
+  top:150%;
+  right:0;
+  width: 95vw;
+  border-radius: 1rem 0 1rem 1rem;
+  background-color: var(--background-dark);
+  padding:1rem;
+}
+.responsive-nav-content>*{
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.responsive-nav-content ul{
+  display:flex;
+  flex-direction: column;
+}
+.responsive-nav-active{
+  display:block !important;
+  color:var(--background-dark);
+}
+/****** Footer Styling ******/
+footer {
+  margin-top: auto;
+  text-align: center;
+  background-color: var(--background-dark);
+  padding-block: 4rem 2rem;
+  border-radius: 4rem 4rem 0 0;
+}
+footer h1 {
+  max-width: 70%;
+  margin: auto;
+  margin-bottom: 2.5rem;
+}
+footer h1 span {
+  color: var(--highlight);
+}
+hr {
+  margin-top: 7.5em;
+}
+footer .footer {
+  padding-block: 1rem;
+  margin-bottom: 1rem;
+}
+
+footer .socials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white-light);
+}
+footer .socials > * {
+  margin-inline: 1rem;
+}
+footer .socials .social {
+  border-radius: 8px;
+  outline: 1px solid var(--white-light);
+
+  cursor: pointer;
+  transition: color 0.2s ease-out, outline-color 0.2s ease-out;
+}
+footer .socials .social a {
+  display: grid;
+  place-items: center;
+  padding: 0.5em;
+  color: var(--white);
+  transition: color 0.2s ease-out, outline-color 0.2s ease-out;
+}
+footer .socials .social a:hover {
+  color: var(--primary);
+  outline-color: var(--primary);
+}
+
+/**** Utility Classes *****/
+/*  */
+.container {
+  width: min(77.5rem, 95%);
+  margin-inline: auto;
+}
+
+/* background-dark class makes section's background darker */
+.background-dark {
+  background-color: var(--background-dark);
+}
+
+/* Add this class to all normal button elements */
+.btn {
+  padding: 0.5em 1.5rem;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--primary-light),
+    var(--primary)
+  );
+}
+/* Add this class to all smaller button elements */
+.btn-small {
+  padding: 0.25em 1.25em;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--primary-light),
+    var(--primary)
+  );
+  font-size: var(--button-small);
+}
+
+/* Add this to your searchboxes */
+.searchbox {
+  display: inline-block;
+  padding: 0.5em;
+  border-radius: 50px;
+  background-color: var(--white);
+  padding-left: 2em;
+}
+
+.searchbox input {
+  background-color: transparent;
+}
+
+/* Cards and Large cards */
+.card {
+  min-width: 15rem;
+  padding: 2rem;
+  border-radius: 2rem;
+  border: 2px solid var(--background-light);
+}
+
+.large-card {
+  min-width: 18rem;
+  padding: 3rem;
+  background-image: linear-gradient(var(--background-light), var(--background));
+  border: 4px solid var(--white-light);
+}
+
+/* Highlight Circle */
+.highlight-circle {
+  padding: 1rem;
+  border: 2px solid var(--primary);
+  display: inline-block;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+/* Popup msg card for success or failure */
+.msg-card {
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  position: fixed;
+  z-index: 100000;
+  background-color: red;
+  bottom: 4rem;
+  left: 4rem;
+  border-radius: 1rem;
+  box-shadow: 1px 3px 5px 1px rgba(255, 255, 255, 0.2);
+  animation: fadeOut 3s ease-out;
+}
+.success {
+  background-color: var(--success);
+}
+.warning {
+  background-color: var(--failure);
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+/* Toggle Switch */
+/* The switch - the box around the slider */
+#toggle .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+#toggle .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+#toggle .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+#toggle .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+#toggle input:checked + .slider {
+  background-color: #2196f3;
+}
+
+#toggle input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+#toggle input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+#toggle .slider.round {
+  border-radius: 34px;
+}
+
+#toggle .slider.round:before {
+  border-radius: 50%;
+}
+/* Animation classes */
+/* animation for sections animatoin when scrolling into view */
+.fade-in {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 0.75s ease-in-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Media Queries */
+
+@media screen and (max-width: 1050px) {
+  h1 {
+    font-size: var(--h1-small);
+  }
+  h2 {
+    font-size: var(--h2-small);
+  }
+  h3 {
+    font-size: var(--h3-small);
+  }
+  h4 {
+    font-size: var(--h4-small);
+  }
+  p {
+    font-size: var(--paragraph-small);
+  }
+  /* Header */
+  header nav ul {
+    gap: 2rem;
+  }
+
+  .footer ul {
+    gap: 1rem;
+  }
+
+  /* User Icon */
+  header i {
+    font-size: var(--icon-size-small);
+  }
+  /* Footer */
+  footer {
+    padding-block: 3rem 2rem;
+    border-radius: 3rem 3rem 0 0;
+  }
+  footer h1 {
+    margin-bottom: 2rem;
+  }
+  hr {
+    margin-top: 5em;
+  }
+  footer .footer {
+    padding-block: 1rem;
+    margin-bottom: 1rem;
+  }
+  /* Add this class to all normal button elements */
+  .btn {
+    padding: 0.25em 1em;
+    font-size: var(--button-small);
+  }
+  /* Add this class to all smaller button elements */
+  .btn-small {
+    padding: 0.2em 0.75em;
+    font-size: var(--paragraph-small);
+  }
+
+  /* Add this to your searchboxes */
+  .searchbox {
+    padding-left: 1.25em;
+  }
+
+  /* Cards and Large cards */
+  .card {
+    min-width: 10rem;
+    padding: 1rem;
+    border-radius: 2rem;
+  }
+
+  .large-card {
+    min-width: 14rem;
+    padding: 2rem;
+  }
+
+  /* Highlight Circle */
+  .highlight-circle {
+    font-size: var(--h4-small);
+    padding:0.5rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  :root{
+     /* Font Sizes */
+  --h1-small: 2.5rem;
+  --h2-small: 1.75rem;
+  --h3-small: 1.25rem;
+  --h4-small: 0.85rem;
+  --button-small: 0.85rem;
+  --button: 0.85rem;
+  --paragraph: 0.8rem;
+  --paragraph-small: 0.75rem;
+  --nav-link: 0.65rem; /* for links in navgation and footer */
+  --icon-size: 1rem;
+  --icon-size-small: 0.75rem;
+  }
+  /* Header */
+  .container>ul,
+  .container>#login-container{
+    display: none;
+  }
+
+  .responsive-nav{
+    display:block !important;
+  }
+
+
+  .footer ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Footer */
+  footer {
+    padding-block: 2rem 1rem;
+    border-radius: 3rem 3rem 0 0;
+  }
+  footer h1 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  hr {
+    margin-top: 5em;
+  }
+
+  /* Add this class to all smaller button elements */
+  .btn-small {
+    padding: 0.2em 0.5em;
+  }
+
+  /* Add this to your searchboxes */
+  .searchbox {
+    padding-left: 1em;
+  }
+
+  /* Cards and Large cards */
+  .card {
+    min-width: 7.5rem;
+    padding: 1rem;
+    border-radius: 2rem;
+  }
+
+  .large-card {
+    min-width: 10rem;
+    padding: 2rem;
+  }
+  /* Highlight Circle */
+  .highlight-circle {
+    font-size: var(--h4-small);
+    padding:0.25rem;
+  }
+}

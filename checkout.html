@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/x-icon" href="/assets/brand-icon.svg">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Links To All Style Files -->
+    <link rel="stylesheet" href="./main.css">
+
+    <title>Every Sunday | Cart</title>
+    <style>
+        /* CSS here */
+
+        .cart-section{
+            padding-block: 8rem;
+        }
+        h1 span{
+            color:var(--highlight);
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: auto;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        table td,
+        table th {
+        border: 1px solid var(--white);
+        padding: 0.75rem 1rem;
+        color:var(--white);
+        text-align: center;
+        }
+
+        table tr:nth-child(even) {
+        background-color: var(--background);
+        }
+
+        table tr:hover {
+            background-color: var(--background-light);
+        }
+
+        table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: var(--background-dark);
+            color: white;
+            text-align: center;
+        }
+        #append select{
+            padding:0.25rem 0.5rem;
+            background-color: transparent !important;
+            border: 2px solid var(--white-light);
+            color: var(--white-light);
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        #append select option{
+            background-color: var(--background-light);
+            color:var(--white);
+            cursor: pointer;
+        }
+
+        
+        .checkout-container{
+            padding-block: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border:1px solid var(--white);
+            /* margin-top: 2rem; */
+            border-top: none;
+            padding:2rem;
+        }
+        #total{
+            font-size: var(--h3);
+            color:var(--highlight);
+            margin-left: 1rem;
+        }
+        .secondary-btn{
+            background-color: transparent !important;
+            background-image: none;
+            border:2px solid var(--primary);
+            color:var(--primary);
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <img src="./assets/brand-logo.svg" alt="Every Sunday Logo">
+            <ul>
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/destination.html">Destination</a></li>
+                <li><a href="/feedback.html">Feedback</a></li>
+                <li><a href="/prices.html">Pricing</a></li>
+            </ul>
+            <!-- <div id="toggle">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div> -->
+            <div id="login-container">
+                <a href="./login.html" id="loginBtn"><i class="fa-solid fa-user" id="login-btn"></i></a>
+                <div style="display: none;">
+                    <a href='./checkout.html'><i class="fa-solid fa-cart-shopping" style="margin-right:1rem"></i></a>
+                    <a href="/" id="logout-btn" class='btn-small' style='border-radius:50px;color:var(--white)'>Log Out</a>
+                </div>       
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="container cart-section">
+            <!--  -->
+            <h1>Your <span>Cart</span></h1>
+            <table id="table">
+                <thead class="thead">
+                    <th>City</th>
+                    <th>People</th>
+                    <th>Days</th>
+                    <th>Tier</th> 
+                    <th>Remove Item</th>
+                </thead>
+                <tbody class="append" id="append">
+                    <!-- Date Appended Here -->
+                </tbody>
+            </table>
+            <div class="checkout-container">
+                <h4>Your Total is: <span id="total"></span> <i class="fa-solid fa-sack-dollar" style="color:#cc8e35"></i></h4>
+                <div>
+                    <button id="save-cart" class="btn secondary-btn">Save Cart</button>
+                    <button id="buy-now" class="btn">Buy Now</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <section class="articles"></section>
+        <div class="container">
+            <h1>Get started and early <span>Update</span> about our package</h1>
+            <!-- Copy this searchbox If you want to use it somewhere else -->
+            <div class="searchbox">
+                <input  type="text" placeholder="Enter your email">
+                <button class="btn" id="cta">Get Started</button>
+            </input>
+            </div>
+            <hr>
+            <div class="footer">
+                <img src="./assets/brand-logo.svg" alt="Every Sunday Logo">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/">Destination</a></li>
+                    <li><a href="/">Feedback</a></li>
+                    <li><a href="/">Pricing</a></li>
+                </ul>
+                <p><i class="fa-regular fa-copyright"></i> 2023 Every Sunday</p>
+            </div>
+            <div class="socials">
+                <div class="social">
+                    <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <div class="social">
+                    <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+                <div class="social">
+                    <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+<script src="main.js"></script>
+<script>
+    // JS code goes here
+    let tbody = document.querySelector('#append');
+    let total = document.querySelector('#total');
+    let saveCart=document.querySelector('#save-cart');
+    let buyBtn=document.querySelector('#buy-now');
+    let table = document.querySelector('#table');
+
+    let cartItems=[];
+    let user;
+    let totalValue=0;
+    
+    window.addEventListener('load', getUser);
+    saveCart.addEventListener('click',()=>{
+        postCart(cartItems);
+        getTotal();
+    });
+    buyBtn.addEventListener('click',()=>{
+        displayMessage("Payment Successful!",'success');
+    });
+
+async function getUser() {
+    let id=JSON.parse(localStorage.getItem('userId'));
+    let url = `https://mock-every-sunday-server.onrender.com/users?id=${id}`;
+    try {
+        let res = await fetch(url);
+        let data= await res.json();
+        // console.log(data[0].cart);
+        user=data[0];
+        cartItems=data[0].cart;
+        if(cartItems.length==0){
+            table.innerHTML='<h2>Nothing In Cart</h2>';
+            document.querySelector('.checkout-container').style.display="none";
+            return;
+        }
+        displayCart(cartItems);
+        getTotal();
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function displayCart(cart){
+        tbody.innerHTML="";
+        cart.forEach((item,i)=>{
+            let price = item.price;
+            let row = document.createElement('tr');
+            
+            let city=document.createElement('td');
+            city.innerText = item.city;
+            
+            let numPeople=document.createElement('td');
+            // numPeople.style.display = 'flex';
+            let peopleCont=document.createElement('div');
+            peopleCont.style.display = 'flex';
+            peopleCont.style.justifyContent = 'center';
+            let peopleValue= document.createElement('p');
+            peopleValue.style.marginInline = '0.5rem';
+            peopleValue.innerText =item.numOfPeople;
+            let minus1=document.createElement('button');
+            minus1.innerText='-';
+            minus1.classList.add('btn-small');
+            minus1.addEventListener('click',()=>{
+                if(peopleValue.innerText>1){
+                    item.numOfPeople=+peopleValue.innerText-1;
+                    peopleValue.innerText=+peopleValue.innerText-1;
+                    // console.log(cartItems);
+                    getTotal();
+                }
+            })
+            let plus1=document.createElement('button');
+            plus1.innerText='+';
+            plus1.classList.add('btn-small');
+            plus1.addEventListener('click',()=>{
+                item.numOfPeople=+peopleValue.innerText+1;
+                peopleValue.innerText=+peopleValue.innerText+1;
+                // console.log(cartItems);
+                getTotal();
+            })
+            peopleCont.append(minus1,peopleValue,plus1);
+            numPeople.append(peopleCont);
+
+            let numDays=document.createElement('td');
+            let daysCont=document.createElement('div');
+            daysCont.style.display = 'flex';
+            daysCont.style.justifyContent = 'center';
+            // numDays.style.display = 'flex';
+            let daysValue= document.createElement('p');
+            daysValue.style.marginInline = '0.5rem';
+            daysValue.innerText =item.numOfDays;
+            let minus2=document.createElement('button');
+            minus2.innerText='-';
+            minus2.classList.add('btn-small');
+            minus2.addEventListener('click',()=>{
+                if(daysValue.innerText>1){
+                    item.numOfDays=+daysValue.innerText-1;
+                    daysValue.innerText=+daysValue.innerText-1;
+                    // console.log(cartItems);
+                    getTotal();
+                }
+            })
+            let plus2=document.createElement('button');
+            plus2.innerText='+';
+            plus2.classList.add('btn-small');
+            plus2.addEventListener('click',()=>{
+                item.numOfDays=+daysValue.innerText+1;
+                daysValue.innerText=+daysValue.innerText+1;
+                // console.log(cartItems);
+                getTotal();
+            })
+            daysCont.append(minus2,daysValue,plus2);
+            numDays.append(daysCont);
+
+            let tierCont=document.createElement('td');
+            let tier = document.createElement("select");
+            let options = ["Basic", "Premium", "Luxury"];
+            for (let i = 0; i < options.length; i++) {
+                let optionElement = document.createElement("option");
+                optionElement.text = options[i];
+                optionElement.value = options[i];
+                tier.append(optionElement);
+            }
+            if(item.tier=='Basic'){
+                tier.value='Basic';
+            }else if(item.tier=='Premium'){
+                tier.value='Premium';
+            }else if(item.tier=='Luxury'){
+                tier.value='Luxury';
+            }
+            tier.addEventListener("change",()=>{
+                item.tier = tier.value;
+                // console.log(cartItems);
+                getTotal();
+            });
+            console.log(tier.value);
+            tierCont.append(tier);
+
+            let td=document.createElement('td');
+            let delBtn=document.createElement('button');
+            delBtn.innerText="Delete";
+            delBtn.classList.add('btn-small');
+            delBtn.style.backgroundImage='none';
+            delBtn.style.backgroundColor='var(--failure)';
+            delBtn.addEventListener('click',()=>{
+                cartItems=cartItems.filter(el=>el.city!=item.city);
+                // console.log(cartItems);
+                displayCart(cartItems);
+                getTotal();
+            });
+            td.append(delBtn)
+
+            row.append(city,numPeople,numDays,tierCont,td);
+            tbody.append(row);
+        })
+}
+
+function getTotal(){
+    totalValue=0;
+    cartItems.forEach((item)=>{
+        // console.log(item.basePrice);
+        if(item.tier=='Basic'){
+            totalValue+=+item.basePrice;
+        }else if(item.tier=='Premium'){
+            totalValue+=+item.basePrice*2;
+        }else if(item.tier=='Luxury'){
+            totalValue+=+item.basePrice*3;
+        }
+        totalValue=totalValue*(+item.numOfDays);
+        totalValue=totalValue*(+item.numOfPeople);
+        // console.log(totalValue);
+        console.log(totalValue);
+    })
+    total.innerText=totalValue;
+}
+
+
+
+async function postCart(userCart) {
+    let id= JSON.parse(localStorage.getItem('userId'));
+    console.log(id);
+    let url = `https://mock-every-sunday-server.onrender.com/users/${id}`;
+    try {
+    let res = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cart: userCart,
+      }),
+    });
+    let data = await res.json();
+    // console.log(data);
+    displayMessage("New Cart Saved!", "success");
+  } catch (e) {
+    console.log(e);
+    displayMessage("Something Went Wrong! :/", "warning");
+  }
+}
+
+</script>
