@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/x-icon" href="/assets/brand-icon.svg" />
+
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="main.css" />
+    <style>
+      .admin {
+        padding-block: 5rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-areas: "sidebar maincontent maincontent maincontent";
+        gap: 2rem;
+      }
+      .sidebar {
+        grid-area: sidebar;
+        display: flex;
+        flex-direction: column;
+        border: 4px solid var(--white);
+        border-radius: 1rem;
+        padding-block: 2rem;
+        padding-inline: 1rem;
+        align-self: flex-start;
+      }
+      .sidebar .btn {
+        border: 2px solid transparent;
+      }
+      .sidebar .inactive {
+        padding: 0.5em 1.5rem;
+        border: 2px solid var(--primary);
+        background-color: transparent;
+        color: var(--primary);
+        font-weight: 400;
+      }
+      .sidebar img {
+        width: 75%;
+        margin-inline: auto !important;
+        object-fit: cover;
+        margin-bottom: 1rem;
+      }
+      .sidebar h3,
+      .sidebar h4 {
+        text-align: center;
+        color: var(--highlight);
+      }
+      .sidebar hr {
+        margin: 0;
+        margin-block: 1rem;
+        background-color: var(--white);
+      }
+      .Destination {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .Destination input {
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+      }
+      .viweUser {
+        margin: 1rem 0;
+      }
+      .viweUser button {
+        width: 100%;
+      }
+      .editdesti {
+        margin: 1rem 0;
+      }
+      .editdesti button {
+        width: 100%;
+      }
+      .viewDestination {
+        margin: 1rem 0;
+      }
+      .viewDestination button {
+        width: 100%;
+      }
+      /* table */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: auto;
+        text-align: center;
+      }
+
+      table td,
+      table th {
+        border: 1px solid var(--white);
+        padding: 6px;
+        text-align: center;
+      }
+
+      table tr:nth-child(even) {
+        background-color: var(--background);
+      }
+
+      table tr:hover {
+        background-color: var(--background-light);
+      }
+
+      table th {
+        padding-top: 6px;
+        padding-bottom: 6px;
+        text-align: left;
+        background-color: var(--background-dark);
+        color: white;
+        text-align: center;
+      }
+      .imgAvatarwraper {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        margin: auto;
+        overflow: hidden;
+      }
+      .imgAvatarwraper img {
+        width: 100%;
+        height: 100%;
+      }
+      .deleteUserBtn {
+        margin: 1rem 0;
+        background-color: var(--failure);
+        background-image: none;
+      }
+      .main-content {
+        grid-area: maincontent;
+        position: relative;
+        min-height: 50vh;
+        padding: 2rem;
+        border-radius: 2rem;
+        border: 8px solid var(--white);
+      }
+      #blank {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      #loader {
+        display: none;
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10000;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .imgheader {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      .imgheader img {
+        width: 100%;
+        height: 100%;
+      }
+      .wraper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin: 10px 0;
+      }
+      #default h1 {
+        margin-bottom: 2rem;
+      }
+      #default p {
+        margin-bottom: 1rem;
+        letter-spacing: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <img src="./assets/brand-logo.svg" alt="Every Sunday Logo" />
+        <!-- <div id="toggle">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div> -->
+        <div id="login-container">
+          <a href="./login.html" id="loginBtn"
+            ><i class="fa-solid fa-user" id="login-btn"></i
+          ></a>
+          <div style="display: none">
+            <a
+              href="/"
+              id="logout-btn"
+              class="btn-small"
+              style="border-radius: 50px; color: var(--white)"
+              >Log Out</a
+            >
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="container admin">
+        <!-- <div class="sidebar">
+                <div class="viewDestination">
+                    <button class="viewAllDestinations btn">View All Destinations</button>
+                    <hr>
+                </div>    
+                
+                <hr>
+                <div class="editdesti">
+                    <button class="editdes btn">Edit Destination</button>
+                </div>
+                <hr>
+            </div> -->
+        <div class="sidebar">
+          <div>
+            <img src="./assets/Avatar1.png" alt="Admin Icon" />
+            <h3>Admin</h3>
+          </div>
+          <hr />
+          <button class="inactive tab" id="destinations-tab">
+            Destinations
+          </button>
+          <hr />
+          <button class="inactive tab" id="users-tab">Users</button>
+          <div class="Destination">
+            <hr />
+            <h4>Destination Form</h4>
+            <!-- <input type="text" id="id" placeholder="Id" /> -->
+            <input type="text" id="city" placeholder="Enter Place" />
+            <input type="text" id="country" placeholder="Enter city" />
+            <input
+              type="text"
+              id="description"
+              placeholder="Enter description"
+            />
+            <input
+              type="text"
+              id="attraction1"
+              placeholder="Add Attraction 1"
+            />
+            <input
+              type="text"
+              id="attraction2"
+              placeholder="Add Attraction 2"
+            />
+            <input
+              type="text"
+              id="attraction3"
+              placeholder="Add Attraction 3"
+            />
+            <input
+              type="number"
+              id="estimatedCost"
+              placeholder="Add EstimatedCost"
+            />
+            <input type="number" id="rating" placeholder="Rating" />
+            <input type="text" id="activity1" placeholder="Add Activity 1" />
+            <input type="text" id="activity2" placeholder="Add Activity 2" />
+            <input type="text" id="activity3" placeholder="Add Activity 3" />
+            <input type="text" id="food1" placeholder="Add local food 1" />
+            <input type="text" id="food2" placeholder="Add local food 2" />
+            <input type="text" id="food3" placeholder="Add local food 3" />
+            <input type="text" id="image" placeholder="Add Image url" />
+            <button class="addDestination btn">Add Destination</button>
+            <button class="updateDestination inactive">
+              Update Destination
+            </button>
+          </div>
+        </div>
+        <div class="main-content">
+          <div id="default">
+            <h1>
+              Welcome Back! <span style="color: var(--highlight)">Admin</span>
+            </h1>
+            <p>While you were gone, we had a lot of traffic on our website</p>
+            <p>
+              Number Of Visits:<span style="color: var(--highlight)">0</span>
+            </p>
+            <p>
+              Total Number Of Users :<span style="color: var(--highlight)"
+                >4</span
+              >
+            </p>
+            <p>
+              Total Number Of Destinations:
+              <span style="color: var(--highlight)">10</span>
+            </p>
+            <p>
+              Total Number Of Testimonials:
+              <span style="color: var(--highlight)">0</span>
+            </p>
+          </div>
+          <div id="blank">
+            <img src="./assets/Loader.svg" alt="loader" id="loader" />
+            <!-- all destination deta append here -->
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <section class="articles"></section>
+      <div class="container">
+        <div class="footer">
+          <img src="./assets/brand-logo.svg" alt="Every Sunday Logo" />
+          <div class="socials">
+            <div class="social">
+              <a href="https://www.instagram.com/" target="_blank"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+            </div>
+            <div class="social">
+              <a href="https://twitter.com/" target="_blank"
+                ><i class="fa-brands fa-twitter"></i
+              ></a>
+            </div>
+            <div class="social">
+              <a href="https://www.facebook.com/" target="_blank"
+                ><i class="fa-brands fa-facebook"></i
+              ></a>
+            </div>
+          </div>
+          <p><i class="fa-regular fa-copyright"></i> 2023 Every Sunday</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script src="main.js"></script>
+  <script>
+    let obj = {
+      1: "./assets/Avatar1.png",
+      2: "./assets/Avatar2.png",
+      3: "./assets/Avatar3.png",
+      4: "./assets/Avatar4.png",
+      5: "./assets/Avatar5.png",
+      6: "./assets/Avatar6.png",
+      7: "./assets/Avatar7.png",
+      8: "./assets/Avatar8.png",
+      9: "./assets/Avatar9.png",
+      10: "./assets/Avatar10.png",
+    };
+    let destinationURL =
+      "https://mock-every-sunday-server.onrender.com/destinations";
+    let usersUrl = "https://mock-every-sunday-server.onrender.com/users";
+
+    let tbody = document.querySelector(".tbody");
+    let viewAllUsers = document.querySelector(".viewAllUsers");
+    let viewAllDestinations = document.querySelector(".viewAllDestinations");
+    let userdetailstable = document.querySelector("#userdetailstable");
+    let main_container = document.querySelector("#blank");
+    let editdes = document.querySelector(".editdes");
+    let destinationsTab = document.querySelector("#destinations-tab");
+    let usersTab = document.querySelector("#users-tab");
+    let defaultText = document.querySelector("#default");
+    let tabs = Array.from(document.querySelectorAll(".tab"));
+    let loader = document.querySelector("#loader");
+    let destinationForm = document.querySelector(".Destination");
+    let destinationNav = document.querySelector(".destination-nav");
+    let addDestination = document.querySelector(".addDestination");
+    let updateDestination = document.querySelector(".updateDestination");
+
+    // let id = document.getElementById("id");
+    let city = document.getElementById("city");
+    let country = document.getElementById("country");
+    let description = document.getElementById("description");
+    let attraction1 = document.getElementById("attraction1");
+    let attraction2 = document.getElementById("attraction2");
+    let attraction3 = document.getElementById("attraction3");
+    let estimatedCost = document.getElementById("estimatedCost");
+    let rating = document.getElementById("rating");
+    let activity1 = document.getElementById("activity1");
+    let activity2 = document.getElementById("activity2");
+    let activity3 = document.getElementById("activity3");
+    let food1 = document.getElementById("food1");
+    let food2 = document.getElementById("food2");
+    let food3 = document.getElementById("food3");
+    let image = document.getElementById("image");
+
+    destinationsTab.addEventListener("click", () => {
+      tabs.forEach((tab) => {
+        tab.classList.remove("btn");
+        tab.classList.add("inactive");
+      });
+      destinationsTab.classList.remove("inactive");
+      destinationsTab.classList.add("btn");
+      datafetch(destinationURL);
+    });
+    usersTab.addEventListener("click", () => {
+      tabs.forEach((tab) => {
+        tab.classList.remove("btn");
+        tab.classList.add("inactive");
+      });
+      usersTab.classList.remove("inactive");
+      usersTab.classList.add("btn");
+      datauserfetch(usersUrl);
+    });
+
+    // let addDestinationBtn = document.querySelector("#add-destination");
+    // addDestinationBtn.addEventListener("click", () => {
+    //   destinationForm.style.display = "flex";
+    // });
+
+    // Destinations Functionality
+    async function datafetch(url) {
+      defaultText.innerHTML = "";
+      loader.style.display = "block";
+      try {
+        let res = await fetch(url);
+        let data = await res.json();
+        console.log(data);
+        appendDestination(data);
+      } catch (error) {
+        console.log(error);
+        displayMessage("Try Again Later! :/", "warning");
+      }
+    }
+    function showDestinationForm() {
+      destinationForm.style.display = "flex";
+    }
+    function hideDestinationForm() {
+      destinationForm.style.display = "none";
+    }
+
+    function appendDestination(arr) {
+      main_container.innerHTML = null;
+      loader.style.display = "none";
+      main_container.innerHTML = `
+            <div class="destination-nav" style="grid-column: span 3">
+              <p>
+                To add a new destination click here :
+                <button class="btn-small" id="add-destination" onclick="showDestinationForm()">Add Destination</button>
+              </p>
+              <hr style="width: 100%; margin: 1rem auto 2rem auto" />
+            </div>
+      `;
+      addDestination.addEventListener("click", postDestination);
+      arr.forEach((ele) => {
+        main_container.append(singleCard(ele));
+      });
+    }
+
+    function singleCard(item) {
+      let card = document.createElement("div");
+      card.className = "card";
+      let imgheader = document.createElement("div");
+      imgheader.className = "imgheader";
+      let img = document.createElement("img");
+      img.src = item.img;
+      imgheader.appendChild(img);
+
+      let cityname = document.createElement("h3");
+      cityname.innerText = item.name;
+      let countryname = document.createElement("h4");
+      countryname.innerText = item.country;
+      let edit = document.createElement("button");
+      let deleteBtn = document.createElement("button");
+      edit.innerText = "Edit";
+      deleteBtn.innerText = "Delete";
+      edit.classList.add("edit", "btn-small");
+      deleteBtn.classList.add("delete", "btn-small");
+      edit.addEventListener("click", showDestinationForm);
+      edit.addEventListener("click", () => {
+        city.value = item.name;
+        country.value = item.country;
+        description.value = item.description;
+        attraction1.value = item.attractions[0];
+        attraction2.value = item.attractions[1];
+        attraction3.value = item.attractions[2];
+        estimatedCost.value = item.estimatedCost;
+        rating.value = item.rating;
+        activity1.value = item.activity[0];
+        activity2.value = item.activity[1];
+        activity3.value = item.activity[2];
+        food1.value = item.food[0];
+        food2.value = item.food[1];
+        food3.value = item.food[2];
+        image.value = item.img;
+        // id.value = item.id;
+        updateDestination.classList.add("btn");
+        updateDestination.classList.remove("inactive");
+        addDestination.classList.add("inactive");
+        addDestination.classList.remove("btn");
+        localStorage.setItem("id", item.id);
+      });
+
+      deleteBtn.addEventListener("click", () => {
+        fetch(`${destinationURL}/${item.id}`, {
+          method: "DELETE",
+        })
+          .then((res) => {
+            displayMessage("Destination Deleted!", "success");
+            return res.json();
+          })
+          .then((data) => {
+            datafetch(destinationURL);
+          })
+          .catch((err) => {
+            console.log(err);
+            displayMessage("Something went wrong!", "warning");
+          });
+      });
+
+      let wraper = document.createElement("div");
+      wraper.className = "wraper";
+      wraper.append(edit, deleteBtn);
+      card.append(imgheader, cityname, countryname, wraper);
+      return card;
+    }
+
+    // Users Functionality
+    async function datauserfetch(url) {
+      defaultText.innerHTML = "";
+      loader.style.display = "block";
+      try {
+        let res = await fetch(url);
+        let data = await res.json();
+        console.log(data);
+        displayUserData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    function displayUserData(data) {
+      main_container.innerHTML = null;
+      loader.style.display = "none";
+      let table = document.createElement("table");
+
+      let thead = document.createElement("thead");
+      let trhead = document.createElement("tr");
+      let namehead = document.createElement("th");
+      let emailhead = document.createElement("th");
+      let passwordhead = document.createElement("th");
+      let imageAvatarIdhead = document.createElement("th");
+      let userIdhead = document.createElement("th");
+      let deletehead = document.createElement("th");
+
+      namehead.textContent = "Name";
+      emailhead.textContent = "Email";
+      passwordhead.textContent = "Password";
+      imageAvatarIdhead.textContent = "ImageAvatar";
+      userIdhead.textContent = "UserId";
+      deletehead.textContent = "Delete";
+
+      trhead.append(
+        imageAvatarIdhead,
+        namehead,
+        emailhead,
+        passwordhead,
+        userIdhead,
+        deletehead
+      );
+      thead.append(trhead);
+
+      let tbody = document.createElement("tbody");
+
+      data.forEach((ele) => {
+        let tr = document.createElement("tr");
+        let name = document.createElement("td");
+        let email = document.createElement("td");
+        let password = document.createElement("td");
+        let imageAvatarId = document.createElement("td");
+        let imgAvatarwraper = document.createElement("div");
+        imgAvatarwraper.className = "imgAvatarwraper";
+        let imgAvatar = document.createElement("img");
+        let userId = document.createElement("td");
+
+        let deletetd = document.createElement("td");
+
+        let deleteBtn = document.createElement("button");
+
+        name.textContent = ele.name;
+        email.textContent = ele.email;
+        password.textContent = ele.password;
+
+        if (obj[ele.imgAvatar]) {
+          imgAvatar.src = obj[ele.imgAvatar];
+        } else {
+          imgAvatar.style.display = "none";
+        }
+
+        imgAvatarwraper.append(imgAvatar);
+        imageAvatarId.append(imgAvatarwraper);
+
+        userId.textContent = ele.id;
+
+        deleteBtn.className = "btn-small deleteUserBtn";
+        deleteBtn.innerText = "Delete";
+        deleteBtn.addEventListener("click", () => {
+          console.log(ele.id);
+          fetch(`${usersUrl}/${ele.id}`, {
+            method: "DELETE",
+          })
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              console.log(data);
+              datauserfetch(usersUrl);
+              displayMessage("User deleted!", "success");
+            })
+            .catch((err) => console.log(err));
+        });
+
+        deletetd.append(deleteBtn);
+        tr.append(imageAvatarId, name, email, password, userId, deletetd);
+
+        tbody.appendChild(tr);
+      });
+
+      table.append(thead, tbody);
+      main_container.append(table);
+    }
+
+    // add description function
+
+    function postDestination() {
+      fetch(destinationURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: city.value,
+          country: country.value,
+          description: description.value,
+          attractions: [
+            attraction1.value,
+            attraction2.value,
+            attraction3.value,
+          ],
+          estimatedCost: estimatedCost.value,
+          rating: rating.value,
+          activity: [activity1.value, activity2.value, activity3.value],
+          food: [food1.value, food2.value, food3.value],
+          img: image.value,
+        }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          datafetch(destinationURL);
+          displayMessage("Destination Added Successfully!", "success");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      // reset all input filds
+
+      //   id.value = "";
+      city.value = "";
+      country.value = "";
+      description.value = "";
+      attraction1.value = "";
+      attraction2.value = "";
+      attraction3.value = "";
+      estimatedCost.value = "";
+      rating.value = "";
+      activity1.value = "";
+      activity2.value = "";
+      activity3.value = "";
+      food1.value = "";
+      food2.value = "";
+      food3.value = "";
+      image.value = "";
+    }
+
+    // add user data to the dom
+
+    // edit destination
+
+    updateDestination.addEventListener("click", updateDestinationFunc);
+
+    function updateDestinationFunc(id) {
+      fetch(`${destinationURL}/${JSON.parse(localStorage.getItem("id"))}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: city.value,
+          country: country.value,
+          description: description.value,
+          attractions: [
+            attraction1.value,
+            attraction2.value,
+            attraction3.value,
+          ],
+          estimatedCost: estimatedCost.value,
+          rating: rating.value,
+          activity: [activity1.value, activity2.value, activity3.value],
+          food: [food1.value, food2.value, food3.value],
+          img: image.value,
+        }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          datafetch(destinationURL);
+          localStorage.removeItem("id");
+          displayMessage("Destination Edited Successfully!", "success");
+        })
+        .catch((error) => {
+          console.log(error);
+          displayMessage("Try Again Later! :/", "warning");
+          localStorage.removeItem("id");
+        });
+
+      // reset all input filds
+
+      //   id.value = "";
+      city.value = "";
+      country.value = "";
+      description.value = "";
+      attraction1.value = "";
+      attraction2.value = "";
+      attraction3.value = "";
+      estimatedCost.value = "";
+      rating.value = "";
+      activity1.value = "";
+      activity2.value = "";
+      activity3.value = "";
+      food1.value = "";
+      food2.value = "";
+      food3.value = "";
+      image.value = "";
+    }
+  </script>
+</html>
